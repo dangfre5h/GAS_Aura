@@ -1,0 +1,15 @@
+Binaries
+DerivedDataCache
+Intermediate
+Saved
+Build
+
+*.user
+*.opendb
+*.db
+*.suo
+*.chw
+*.pdb
+*.vs
+*.cache
+*.resources
