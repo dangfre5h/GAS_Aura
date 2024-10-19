@@ -39,8 +39,7 @@ void AAuraPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 
-	//InputComponent(基类变量)，只想EnhancedInputComponent，因为UE Editor中的Project Settings下的
-	//Default Input Component Class为EnhancedInputComponent，也可以自定义成其他
+	//InputComponent(基类变量)
 	UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
 	//增强输入绑定InputAction和输入逻辑函数
 	EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AAuraPlayerController::Move);
