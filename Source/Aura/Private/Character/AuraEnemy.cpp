@@ -22,6 +22,13 @@ AAuraEnemy::AAuraEnemy()
 
 }
 
+void AAuraEnemy::BeginPlay()
+{
+	Super::BeginPlay();
+
+	AbilitySystemComponent->InitAbilityActorInfo(this, this);
+}
+
 void AAuraEnemy::HighlightActor()
 {
 	//因为后期处理体积PostProcessVolume下面所选择的材料，是针对CustomDepth为250的网格进行高亮，所以此处赋值250

@@ -24,6 +24,8 @@ public:
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	//获取PlayerState上的AS
 	UAttributeSet* GetAttributeSet() const { return AttributeSet; }
+
+
 protected:
 
 	UPROPERTY()
