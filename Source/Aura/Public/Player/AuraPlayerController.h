@@ -9,6 +9,7 @@
 class UInputMappingContext;
 class UInputAction;
 struct FInputActionValue;
+class IEnemyInterface;
 
 /**
  *
@@ -20,6 +21,8 @@ class AURA_API AAuraPlayerController : public APlayerController
 
 public:
 	AAuraPlayerController();
+
+	virtual void PlayerTick(float DeltaTime) override;
 
 protected:
 	virtual void BeginPlay() override;
@@ -36,4 +39,13 @@ private:
 
 	void Move(const FInputActionValue& InputActionValue);
 
+	//鼠标跟踪处理逻辑
+	void CursorTrace();
+	//保存上一帧和这一帧鼠标指向的Actor
+	IEnemyInterface* LastActor;
+	IEnemyInterface* ThisActor;
+
+	
 };
+
+

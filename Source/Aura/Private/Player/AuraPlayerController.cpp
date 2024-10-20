@@ -4,11 +4,83 @@
 #include "Player/AuraPlayerController.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
+#include "Interaction/EnemyInterface.h"
 
 AAuraPlayerController::AAuraPlayerController()
 {
 	//会被复制到服务器
 	bReplicates = true;
+}
+
+void AAuraPlayerController::PlayerTick(float DeltaTime)
+{
+	Super::PlayerTick(DeltaTime);
+
+	CursorTrace();
+}
+
+void AAuraPlayerController::CursorTrace()
+{
+	//获取鼠标直线指向的目标
+	FHitResult CursorHit;
+	GetHitResultUnderCursor(ECC_Visibility, false, CursorHit);
+	//没有碰撞阻挡，返回
+	if (!CursorHit.bBlockingHit)
+	{
+		return;
+	}
+
+	LastActor = ThisActor;
+	ThisActor = Cast<IEnemyInterface>(CursorHit.GetActor());
+
+	/*
+	 * 几种不同的情况
+	 * A. LastActor is null && ThisActor is null
+	 *		- Do nothing.
+	 * B. LastActor is null && ThisActor is valid
+	 *		- Highlight ThisActor.
+	 * C. LastActor is valid && ThisActor is null
+	 *		- Highlight LastActor.
+	 * D. Both actors are valid, but LastActor != ThisActor
+	 *		- UnHighlight LastActor, and highlight ThisActor
+	 * E. Both actors are valid, but LastActor == ThisActor
+	 *		- Do nothing.
+	 */
+
+	if (LastActor == nullptr)
+	{
+		if (ThisActor == nullptr)
+		{
+			// Case A, both are null - do nothing
+		}
+		else
+		{
+			// Case B
+			ThisActor->HighlightActor();
+		}
+	}
+	else // LastActor is valid
+	{
+		if (ThisActor == nullptr)
+		{
+			// Case C
+			LastActor->UnHighlightActor();
+		}
+		else // both actors are valid
+		{
+			if (LastActor != ThisActor)
+			{
+				// Case D
+				LastActor->UnHighlightActor();
+				ThisActor->HighlightActor();
+			}
+			else
+			{
+				// Case E, do nothing
+			}
+		}
+	}
+
 }
 
 //绑定MappingContext,设置鼠标
