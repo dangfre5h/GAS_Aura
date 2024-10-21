@@ -35,6 +35,8 @@ void AAuraHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySyst
 
 	//将Widget和Controller联系起来
 	OverlayWidget->SetWidgetController(WidgetController);
+	//Widget和Controller已经设置完成，所以可以进行属性广播
+	WidgetController->BroadcastInitialValues();
 
 	Widget->AddToViewport();
 }

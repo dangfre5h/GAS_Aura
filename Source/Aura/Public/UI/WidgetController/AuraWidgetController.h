@@ -48,6 +48,8 @@ class AURA_API UAuraWidgetController : public UObject
 public:
 	UFUNCTION(BlueprintCallable)
 	void SetWidgetControllerParams(const FWidgetControllerParams& WCParams);
+	//用于广播数据的方法，子类中重写
+	virtual void BroadcastInitialValues();
 
 protected:
 
