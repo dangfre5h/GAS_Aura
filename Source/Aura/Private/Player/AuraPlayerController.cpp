@@ -92,9 +92,13 @@ void AAuraPlayerController::BeginPlay()
 	check(AuraContext);
 
 	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
-	check(Subsystem);
-	//有多个mapping文件时，优先级数字越大，越先加载
-	Subsystem->AddMappingContext(AuraContext, 0);
+	//多人游戏时，只有在本地机器上才有本地玩家，所以有可能为空
+	if(Subsystem)
+	{
+		//有多个mapping文件时，优先级数字越大，越先加载
+		Subsystem->AddMappingContext(AuraContext, 0);
+	}
+	
 
 	//是否显示鼠标
 	bShowMouseCursor = true;

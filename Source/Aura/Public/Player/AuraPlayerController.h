@@ -42,8 +42,8 @@ private:
 	//鼠标跟踪处理逻辑
 	void CursorTrace();
 	//保存上一帧和这一帧鼠标指向的Actor
-	IEnemyInterface* LastActor;
-	IEnemyInterface* ThisActor;
+	TObjectPtr<IEnemyInterface> LastActor;
+	TObjectPtr<IEnemyInterface> ThisActor;
 
 	
 };
