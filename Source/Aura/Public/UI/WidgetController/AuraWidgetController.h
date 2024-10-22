@@ -50,7 +50,8 @@ public:
 	void SetWidgetControllerParams(const FWidgetControllerParams& WCParams);
 	//用于广播数据的方法，子类中重写
 	virtual void BroadcastInitialValues();
-
+	//用于在委托中绑定的回调函数，子类中重写
+	virtual void BindCallbacksToDependencies();
 protected:
 
 	//数据部分，用来向小部件进行广播

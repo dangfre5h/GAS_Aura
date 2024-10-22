@@ -6,6 +6,7 @@
 #include "UI/Widget/AuraUserWidget.h"
 #include "UI/WidgetController/OverlayWidgetController.h"
 
+//获取OverlayWidgetController，如果没有则新建一个
 UOverlayWidgetController* AAuraHUD::GetOverlayWidgetController(const FWidgetControllerParams& WCParams)
 {
 	//如果没有则创建一个
@@ -14,10 +15,13 @@ UOverlayWidgetController* AAuraHUD::GetOverlayWidgetController(const FWidgetCont
 		OverlayWidgetController = NewObject<UOverlayWidgetController>(this, OverlayWidgetControllerClass);
 		//设置WidgetController参数
 		OverlayWidgetController->SetWidgetControllerParams(WCParams);
+		//为新创建的OverlayWidgetController绑定回调函数
+		OverlayWidgetController->BindCallbacksToDependencies();
 	}
 	return OverlayWidgetController;
 }
 
+//初始化Overlay，将Widget和Widget Controller绑定
 void AAuraHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS)
 {
 	//此函数需要创建OverlayWidget和OverlayWidgetController
